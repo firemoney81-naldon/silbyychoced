@@ -1,23 +1,796 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+ <style>
+    /* 1. 기본 스타일 재설정 및 부드러운 색감 적용 */
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.8;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f9fc; /* 부드러운 미색 배경 */
+      color: #333;
+      overflow-x: hidden; /* 가로 스크롤 방지 */
+    }
+
+    /* 2. 레이아웃: 최대 너비 설정 및 중앙 정렬 */
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    /* 3. 헤더 및 CTA 버튼 디자인 개선 */
+    header {
+      background-color: #ffffff; /* 흰색 배경 */
+      text-align: center;
+      padding: 60px 20px 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-bottom: 5px solid #0056b3; /* 신뢰감을 주는 파란색 */
+    }
+    header h1 {
+      font-size: 2.2em;
+      color: #0056b3;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    header p {
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: 25px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 18px 30px;
+      background-color: #28a745; /* 건강/성장을 상징하는 녹색 */
+      color: #fff;
+      font-size: 19px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    }
+    .cta-btn:hover {
+      background-color: #218838;
+      transform: translateY(-2px);
+    }
+
+    /* 4. 섹션 레이아웃 및 디자인 개선 */
+    section {
+      padding: 40px 0;
+      margin-bottom: 30px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    section h2 {
+      font-size: 1.8em;
+      color: #0056b3;
+      border-bottom: 3px solid #e0e7ff; /* 강조 선 */
+      padding-bottom: 10px;
+      margin-bottom: 25px;
+      text-align: center;
+      font-weight: 600;
+    }
+    section h3 {
+      font-size: 1.4em;
+      color: #007bff;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      padding-left: 10px;
+      border-left: 4px solid #007bff; /* 포인트 강조 */
+      font-weight: 500;
+    }
+    section p {
+      font-size: 1em;
+      color: #444;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    /* 5. 표(table) 디자인 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.95em;
+      background-color: #fff;
+      border: 1px solid #ddd;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px 15px;
+      text-align: left;
+    }
+    th {
+      background-color: #eaf1f8; /* 테이블 헤더 배경색 */
+      color: #333;
+      font-weight: 600;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9; /* 줄무늬 효과 */
+    }
+
+    /* 6. 그래프/시각화 영역 (CSS 기반) */
+    .chart-container {
+      margin: 30px 0;
+      padding: 20px;
+      background-color: #fcfcfc;
+      border: 1px solid #eee;
+      border-radius: 8px;
+    }
+    .chart-label {
+      font-weight: 600;
+      color: #0056b3;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      height: 200px;
+      justify-content: space-between;
+    }
+    .bar-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .bar-name {
+      width: 120px;
+      font-weight: 500;
+      font-size: 0.95em;
+    }
+    .bar {
+      height: 20px;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    .bar-silson { background-color: #007bff; }
+    .bar-dental { background-color: #28a745; }
+
+    /* 7. FAQ 및 견적 (Dwell Time) 영역 디자인 */
+    .faq-item {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      border: 1px solid #eee;
+    }
+    .faq-item h3 {
+      margin: 0;
+      padding: 0;
+      border-left: none;
+      color: #333;
+      font-size: 1.1em;
+      font-weight: 600;
+    }
+    .faq-content {
+      display: none;
+      padding-top: 10px;
+      font-size: 0.95em;
+      color: #555;
+      line-height: 1.6;
+    }
+    .faq-item.active .faq-content {
+      display: block;
+    }
+
+    /* 8. 연락처/폼 디자인 (체류 시간 증진) */
+    .form-section {
+      background-color: #eaf1f8;
+      padding: 30px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+    .form-section label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+    .form-section input[type="text"],
+    .form-section input[type="email"],
+    .form-section input[type="tel"],
+    .form-section select,
+    .form-section textarea {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    .form-section textarea {
+      resize: vertical;
+    }
+    .form-section button {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    .form-section button:hover {
+      background-color: #0056b3;
+    }
+
+    /* 9. 기타 요소 (블록 인용, 리스트) */
+    ul, ol {
+      padding-left: 25px;
+      margin-bottom: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+    blockquote {
+      background-color: #f1f7ff;
+      border-left: 5px solid #007bff;
+      margin: 20px 0;
+      padding: 15px;
+      font-style: italic;
+      color: #555;
+    }
+
+    /* 10. 푸터 디자인 */
+    footer {
+      background-color: #343a40; /* 어두운 배경 */
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      margin-top: 50px;
+    }
+
+    /* 11. 모바일 반응형 디자인 */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 15px;
+      }
+      header h1 {
+        font-size: 1.8em;
+      }
+      .cta-btn {
+        padding: 15px 20px;
+        font-size: 16px;
+      }
+      th, td {
+        padding: 10px;
+        font-size: 0.9em;
+      }
+    }
+
+    /* 12. 외부 사이트 링크 스타일 */
+    .external-link {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .external-link:hover {
+      text-decoration: underline;
+    }
+
+    /* 13. 인트로 배너 */
+    .intro-banner {
+      background-color: #e0f7fa; /* 연한 하늘색 배경 */
+      border-radius: 10px;
+      padding: 30px;
+      margin: 20px 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    .intro-banner h2 {
+      color: #007bff;
+      text-align: left;
+      border-bottom: none;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    .intro-banner p {
+      color: #444;
+      font-size: 1.1em;
+    }
+
+    /* 14. 앵커 태그 스타일 */
+    .anchor-links {
+        background-color: #f1f1f1;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .anchor-links a {
+        display: inline-block;
+        margin: 5px 10px;
+        padding: 10px 15px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333;
+        font-size: 0.9em;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    .anchor-links a:hover {
+        background-color: #e0e7ff;
+        color: #0056b3;
+    }
+
+    /* 15. 추가적인 강조 스타일 */
+    .highlight {
+      color: #c0392b; /* 경고나 중요 정보 강조 */
+      font-weight: bold;
+    }
+    .green-highlight {
+      color: #28a745;
+      font-weight: bold;
+    }
+    .box-info {
+        background-color: #e6f7ff;
+        border: 1px solid #b3e0ff;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+    }
+    .box-info strong {
+        color: #0056b3;
+    }
+
+    /* 16. 핵심 요약 (SEO Snippet-friendly) */
+    .summary-box {
+        background-color: #f9f9f9;
+        border: 2px solid #007bff;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 30px 0;
+    }
+    .summary-box h3 {
+        color: #007bff;
+        border-left: none;
+        text-align: center;
+        margin-top: 0;
+    }
+    .summary-box ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+
+  </style>
+
+  <!-- Schema Markup: FinancialService -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "실손보험 치과 보장 분석 센터",
+    "url": "https://example.com/dental_insurance_analysis",
+    "description": "실손보험 치과 보장의 모든 것: 급여, 비급여 항목 비교 분석 및 2026년 개정안 상세 안내. 치아보험과의 차이점을 명확하게 설명합니다.",
+    "telephone": "1666-1234",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "서울특별시",
+      "addressRegion": "서울",
+      "streetAddress": "영등포구 여의대로 123"
+    },
+    "serviceType": ["실손보험 분석", "치아보험 상담", "보험금 청구 컨설팅"]
+  }
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1>실손보험 치과 치료 보장: 숨겨진 사실부터 2026년 개정안까지 완벽 분석</h1>
+      <p>치과 치료, 실비(실손보험) 청구 가능 여부가 헷갈리시나요? 복잡한 보험 약관을 알기 쉽게 정리하여, 당신의 소중한 보험료를 헛되이 낭비하지 않도록 도와드립니다.</p>
+      <a href="#consultation-form" class="cta-btn">📞 실손 치과 보장 무료 상담 신청</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="anchor-links">
+        <a href="#analysis">보장 범위 심층 분석</a>
+        <a href="#compare">치아보험 vs 실손보험</a>
+        <a href="#2026_update">2026년 개정안 전망</a>
+        <a href="#claim_process">청구 절차 및 필요 서류</a>
+        <a href="#faq">자주 묻는 질문</a>
+        <a href="#calculation">간편 청구금 계산기</a>
+    </div>
+
+    <section id="analysis">
+      <h2>실손보험 치과 보장의 핵심 원칙: 급여와 비급여의 경계</h2>
+      <p>대한민국 국민 대부분이 가입한 실손보험(실비보험)은 '제2의 건강보험'으로 불리며 병원비 부담을 크게 줄여줍니다. 그러나 유독 치과 진료비 앞에서는 고개를 젓는 경우가 많습니다. <span class="highlight">그 이유는 실손보험의 치과 보장이 국민건강보험이 적용되는 '급여' 항목에 한해서만 보상되기 때문입니다.</span> 반면 치과 치료의 상당 부분을 차지하는 임플란트, 크라운, 인레이 등은 '비급여' 항목으로 분류되어 실손보험의 보상 대상에서 제외됩니다. 이 때문에 많은 분들이 실손보험이 있어도 치과 치료비 부담에 어려움을 겪습니다. </p>
+
+      <h3>실손보험 치과 보장 핵심 요약 (2009년 10월 이후 가입자 기준)</h3>
+      <div class="summary-box">
+          <ul>
+              <li><strong>보장 원칙:</strong> 국민건강보험 급여 항목의 '본인 부담금'만 보장합니다.</li>
+              <li><strong>주요 보장 항목:</strong> 치료 목적의 스케일링, 사랑니 발치, 신경치료(근관치료), 잇몸질환 치료, 충치 보존치료(아말감) 등입니다.</li>
+              <li><strong>주요 비보장 항목:</strong> 임플란트, 브릿지, 틀니, 치아교정, 레진, 인레이/온레이(대부분 비급여) 등 심미성 또는 보철 목적의 치료입니다.</li>
+              <li><strong>가입 시기 중요성:</strong> 2009년 10월 이전에 가입한 실손보험은 치과 치료 자체를 보장하지 않는 경우가 많습니다.</li>
+              <li><strong>예외:</strong> 상해로 인한 치아 손상 치료는 급여/비급여 구분 없이 보장될 수 있습니다.</li>
+          </ul>
+      </div>
+
+      <p>특히 치과 치료는 비급여 항목의 비율이 높고, 의료기관마다 가격 편차가 매우 큽니다. 예를 들어, 동일한 임플란트 시술이라도 병원에 따라 수백만 원의 차이가 발생할 수 있습니다. 이러한 특성 때문에 보험사는 실손보험 약관에서 치과 비급여 항목을 보장 대상에서 제외하여 손해율을 관리하고 있습니다.</p>
+
+      <h3>치과 치료 항목별 실손보험 청구 가능 여부 상세 분석</h3>
+      <p>실손보험 가입자라면 치과 방문 전 반드시 확인해야 할 사항은 내가 받을 치료가 '급여 항목'인지 여부입니다. 아래 표는 자주 헷갈리는 치과 치료 항목에 대한 실손보험 보장 여부를 정리한 것입니다. 이는 2009년 10월 이후 가입한 표준화된 실손보험을 기준으로 합니다. 보장 여부는 약관에 따라 다를 수 있으므로 최종 확인이 필요합니다.</p>
+
+      <div class="box-info">
+          <strong>Tip. '치료 목적'과 '예방/심미 목적' 구분하기:</strong> 실손보험은 질병이나 상해로 인한 '치료'에 집중합니다. 단순 미용 목적의 치아 미백이나 예방 목적의 스케일링은 보장되지 않으나, 잇몸 질환 치료 과정의 스케일링은 급여 항목으로 청구될 수 있습니다.
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>치과 치료 항목</th>
+            <th>급여/비급여 구분</th>
+            <th>실손보험 보장 여부 (2009.10 이후 기준)</th>
+            <th>비고 및 상세 설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>충치 치료 (보존치료)</strong></td>
+            <td>아말감: 급여<br>레진/인레이/온레이: 비급여</td>
+            <td>아말감: O (급여 본인부담금)<br>레진/인레이/온레이: X (비급여)</td>
+            <td>레진은 비급여지만 일부 어린이(만 12세 이하) 영구치 레진 충전은 급여로 인정됩니다.</td>
+          </tr>
+          <tr>
+            <td><strong>신경치료 (근관치료)</strong></td>
+            <td>급여</td>
+            <td>O (급여 본인부담금)</td>
+            <td>신경치료는 급여 항목이지만, 신경치료 후 보철물(크라운)을 씌우는 것은 비급여이므로 실비 청구가 불가합니다.</td>
+          </tr>
+          <tr>
+            <td><strong>임플란트 / 브릿지 / 틀니</strong></td>
+            <td>비급여 (일부 급여 인정)</td>
+            <td>X (비급여)</td>
+            <td>만 65세 이상 급여 임플란트, 틀니의 본인부담금은 실손보험으로 청구 가능합니다. (2026년 급여 정책 변경 가능성 확인 필요)</td>
+          </tr>
+          <tr>
+            <td><strong>치아교정 / 미백 / 라미네이트</strong></td>
+            <td>비급여 (심미 목적)</td>
+            <td>X</td>
+            <td>미용 목적의 치료는 실손보험 보장 대상에서 완전히 제외됩니다.</td>
+          </tr>
+          <tr>
+            <td><strong>스케일링</strong></td>
+            <td>급여 (1년 1회)<br>예방 목적: 비급여</td>
+            <td>O (치료 목적 시)<br>X (예방 목적 시)</td>
+            <td>단순 치석 제거(예방 목적)는 비급여이나, 잇몸 질환 치료 과정의 스케일링은 급여로 인정될 수 있습니다.</td>
+          </tr>
+          <tr>
+            <td><strong>사랑니 발치 및 염증 치료</strong></td>
+            <td>급여</td>
+            <td>O (급여 본인부담금)</td>
+            <td>사랑니 발치 및 관련 염증 치료는 실손보험 급여 항목으로 청구 가능합니다.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>실손보험 가입 시기에 따른 치과 보장의 세대별 차이점</h3>
+      <p>실손보험은 가입 시기에 따라 1세대(~2009년 8월), 2세대(2009년 10월~2017년 3월), 3세대(2017년 4월~2021년 6월), 4세대(2021년 7월~)로 구분됩니다. 가입 시기에 따라 치과 보장 범위가 크게 달라지므로 자신의 가입 시기를 반드시 확인해야 합니다.</p>
+      <div class="box-info">
+          <strong>1세대 실손보험 (~2009년 8월):</strong> 치과 치료는 원칙적으로 전면 보장 제외입니다. 다만 일부 상품의 경우 상해로 인한 치과 치료는 보장하며, 종합병원 치과 진료 시 급여/비급여 모두 보장되는 예외 약관이 존재하기도 합니다.
+      </div>
+      <div class="box-info">
+          <strong>2~4세대 실손보험 (2009년 10월 이후):</strong> 표준 약관에 따라 치과 치료는 국민건강보험이 적용되는 급여 항목에 한해 보장합니다. 자기부담금은 세대별로 차이가 있습니다. 4세대 실손보험은 급여 20%, 비급여 30%의 자기부담금을 공제한 후 보상합니다.
+      </div>
+    </section>
+
+    <section id="compare">
+      <h2>핵심 비교 분석: 치아보험 vs 실손보험, 무엇이 더 유리할까?</h2>
+      <p>치과 치료비 부담에 대한 근본적인 해결책을 찾을 때, 많은 분들이 실손보험 외에 '치아보험'을 함께 고려합니다. 실손보험과 치아보험은 보장 범위와 성격이 완전히 다르기 때문에, <span class="green-highlight">두 보험의 명확한 차이점을 이해하는 것이 중복 가입을 피하고 효율적인 보장을 설계하는 열쇠입니다.</span></p>
+
+      <h3>실손보험과 치아보험 보장 범위 비교표</h3>
+      <p>실손보험은 질병이나 상해로 인한 모든 의료비를 포괄적으로 보상합니다. 반면 치아보험은 치과 치료에 특화되어 있으며, 실손보험이 보장하지 않는 고액의 비급여 치료(임플란트, 크라운)를 집중적으로 보장합니다.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>실손보험 (실비)</th>
+            <th>치아보험</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>주요 목적</strong></td>
+            <td>질병 및 상해 치료비 보장 (포괄적)</td>
+            <td>고액 치과 치료비 보장 (특화)</td>
+          </tr>
+          <tr>
+            <td><strong>보장 범위</strong></td>
+            <td><strong>국민건강보험 '급여' 항목</strong> 본인부담금만 보상</td>
+            <td><strong>주로 '비급여' 항목</strong> 보상 (임플란트, 크라운, 레진 등)</td>
+          </tr>
+          <tr>
+            <td><strong>보상 방식</strong></td>
+            <td>실제 지출한 의료비의 일정 비율 환급 (자기부담금 제외)</td>
+            <td>정액 보상 (치료 1건당 정해진 금액 지급)</td>
+          </tr>
+          <tr>
+            <td><strong>주요 보장 항목</strong></td>
+            <td>사랑니 발치, 신경치료, 급여 잇몸치료 등</td>
+            <td>임플란트, 브릿지, 크라운, 레진, 인레이 등</td>
+          </tr>
+          <tr>
+            <td><strong>면책/감액 기간</strong></td>
+            <td>없음 (가입 즉시 보장)</td>
+            <td>있음 (가입 후 90~180일 면책기간, 1~2년 감액기간)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>치아보험이 필요한 이유: 실손보험의 한계를 넘어서</h3>
+      <p>치과 치료는 건강보험 급여 적용 비율이 낮아 비급여 항목의 지출이 매우 높습니다. 충치 치료를 위한 인레이나 레진, 그리고 임플란트나 크라운 같은 보철 치료는 실손보험으로 보장받을 수 없습니다. 반면 치아보험은 이러한 비급여 항목에 대한 보장을 주력으로 하며, 특히 임플란트는 개당 수십만 원에서 수백만 원에 달하는 고가 치료비가 발생하므로 치아보험이 없다면 경제적 부담이 상당합니다.</p>
+      <div class="box-info">
+          <strong>실손보험만 있는 경우:</strong> 충치로 신경치료를 받고 크라운을 씌운다면, 신경치료비(급여)는 실손보험 청구가 가능하지만, 크라운(비급여) 비용은 본인이 전액 부담해야 합니다.
+      </div>
+      <div class="box-info">
+          <strong>치아보험까지 있는 경우:</strong> 신경치료(급여) 비용은 실손보험으로, 크라운(비급여) 비용은 치아보험으로 각각 보장받을 수 있습니다. 두 보험의 시너지 효과를 통해 치료비 부담을 최소화할 수 있습니다.
+      </div>
+
+      <h3>치아 건강에 대한 인식 변화와 치아보험의 필요성 증가</h3>
+      <p>과거에는 치아 건강 관리에 소홀했지만, 최근에는 평균 수명 증가와 삶의 질 향상에 대한 관심이 높아지면서 치아 관리에 적극적인 투자를 하는 추세입니다. 국민건강보험공단 자료에 따르면 치과 진료비는 지속적으로 증가하고 있으며, 특히 65세 이상 노인 인구의 치과 진료비 지출이 크게 늘고 있습니다. 젊을 때부터 꾸준히 치아 건강을 관리하고, 비급여 치료에 대비하기 위해 치아보험을 알아보는 것이 현명한 재테크로 인식되고 있습니다.</p>
+
+      <h3>그래프 분석: 치아 치료 항목별 비용 및 보장률 (시뮬레이션)</h3>
+      <p>다음은 대표적인 치과 치료 항목에 대한 평균 비용(2026년 예상 기준)과 실손보험 및 치아보험의 일반적인 보장률을 시뮬레이션한 그래프입니다. 실제 보장 금액은 가입 상품에 따라 다를 수 있습니다.</p>
+      <div class="chart-container">
+        <div class="chart-label">치료비용 항목별 실손 vs 치아보험 보장 비율 (2026 예상 기준)</div>
+        <div class="bar-chart">
+          <div class="bar-item">
+            <div class="bar-name">신경치료 (급여)</div>
+            <div class="bar bar-silson" style="width: 70%;"></div>
+            <div class="bar-name">총 비용 중 70% 보장 (급여 본인부담금)</div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-name">임플란트 (비급여)</div>
+            <div class="bar bar-silson" style="width: 0%;"></div>
+            <div class="bar bar-dental" style="width: 80%;"></div>
+            <div class="bar-name">치아보험으로 80% 보장 (실손보험 보장X)</div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-name">레진 충전 (비급여)</div>
+            <div class="bar bar-silson" style="width: 0%;"></div>
+            <div class="bar bar-dental" style="width: 60%;"></div>
+            <div class="bar-name">치아보험으로 60% 보장 (실손보험 보장X)</div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-name">사랑니 발치 (급여)</div>
+            <div class="bar bar-silson" style="width: 80%;"></div>
+            <div class="bar-name">총 비용 중 80% 보장 (급여 본인부담금)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2026_update">
+      <h2>2026년 실손보험 개정안 전망: 5세대 실손보험 도입과 치과 보장의 미래</h2>
+      <p>실손보험은 과잉 진료와 손해율 악화로 인해 지속적인 개정 논의가 이루어지고 있습니다. 2026년에는 '5세대 실손보험' 출시가 예상되며, 이는 치과 보장에도 영향을 미칠 수 있습니다. 2026년 실손보험의 주요 개정 방향은 '비급여 진료 관리 강화'입니다.</p>
+
+      <h3>5세대 실손보험의 주요 변화 예측</h3>
+      <ol>
+          <li><strong>비급여 진료 보장 범위 축소 및 자기부담금 상향:</strong> 5세대 실손보험은 비급여 항목에 대한 보장 범위를 축소하고, 자기부담금을 상향 조정하는 방향으로 개편될 가능성이 높습니다. 이는 특히 치과 치료 중 비급여 항목에 대한 실손보험의 보장이 더욱 어려워지거나, 일부 보장 항목이 완전히 제외될 수 있음을 의미합니다.</li>
+          <li><strong>비급여 진료의 중증/비중증 구분:</strong> 5세대 실손보험에서는 비급여 진료를 중증 비급여와 비중증 비급여로 구분하여 보장 한도를 차등화할 수 있습니다. 치과 비급여 치료는 대부분 비중증 비급여로 분류될 가능성이 높아 보장 한도가 줄어들 수 있습니다.</li>
+          <li><strong>1세대, 2세대 실손보험의 전환 유도:</strong> 2026년에는 금융당국이 1세대 실손보험 가입자에게 5세대 실손보험으로 전환을 유도하는 방안을 추진할 수 있습니다. 1세대 실손보험은 치과 치료에 대한 보장이 없었으나, 2~4세대 실손보험은 급여 항목에 대해 보장하는 등 세대별 보장 내용이 다릅니다. 전환 시 기존 가입자는 새로운 약관을 따르게 되므로, 치과 보장 여부를 꼼꼼히 확인해야 합니다.</li>
+      </ol>
+
+      <h3>2026년 치과 치료 관련 보험료 인상 전망</h3>
+      <p>실손보험료는 매년 갱신 시 인상되는데, 특히 3세대와 4세대 가입자의 보험료 인상률이 높을 것으로 예상됩니다. 이는 비급여 과잉진료로 인한 손해율 증가가 주원인이며, 치과 비급여 진료비도 이러한 손해율에 영향을 미칩니다. 2026년에도 보험료 인상이 예견되는 만큼, 가입자들은 자신의 보험료 갱신 시점을 확인하고 보장 내용을 재점검할 필요가 있습니다.</p>
+    </section>
+
+    <section id="claim_process">
+      <h2>실손보험 치과 치료 보험금 청구 절차 및 필요 서류</h2>
+      <p>실손보험으로 치과 진료비를 청구하기 위해서는 정확한 서류 준비가 필수적입니다. 치과에서는 실손보험 청구가 안 된다고 알고 있는 경우가 많아, 청구 가능 항목임에도 불구하고 그냥 넘어가는 경우가 종종 발생합니다. 보험금 청구는 가입자 본인의 권리이므로, 아래 절차에 따라 꼼꼼하게 진행하는 것이 중요합니다.</p>
+
+      <h3>청구 전 필수 확인 사항: 진료비 세부내역서</h3>
+      <p>가장 중요한 서류는 <strong>'진료비 영수증'</strong>과 <strong>'진료비 세부내역서'</strong>입니다. 특히 세부내역서에는 급여와 비급여 항목이 명확하게 구분되어 있어야 합니다. 실손보험은 급여 항목의 본인부담금만 보상하기 때문에, 비급여 항목과 섞여서 청구하면 보상이 지연되거나 거절될 수 있습니다. 병원에 진료비 세부내역서를 요청할 때 급여/비급여 구분을 요청해야 합니다.</p>
+
+      <h3>청구 필요 서류 체크리스트</h3>
+      <ol>
+          <li><strong>진료비 영수증:</strong> 병원에서 발급하는 전체 진료비 내역서.</li>
+          <li><strong>진료비 세부내역서:</strong> 급여/비급여 항목별 금액이 상세히 기재된 서류.</li>
+          <li><strong>진단서 또는 소견서:</strong> 질병분류코드(K코드)가 포함된 서류. 이는 해당 치료가 질병 치료 목적이었음을 증명하는 핵심 자료입니다.</li>
+          <li><strong>보험금 청구서:</strong> 보험사 양식에 맞춰 작성.</li>
+          <li><strong>신분증 사본 및 통장 사본.</strong></li>
+      </ol>
+
+      <h3>청구 절차 상세 안내</h3>
+      <p>대부분의 보험사는 모바일 앱이나 홈페이지를 통해 간편하게 보험금 청구를 지원합니다. 청구 절차는 다음과 같습니다.</p>
+      <ol>
+          <li>치과 치료 완료 후 병원에서 진료비 영수증 및 세부내역서 발급 요청.</li>
+          <li>필요 시 진단서 또는 소견서 추가 발급 요청.</li>
+          <li>보험사 모바일 앱 또는 웹사이트 접속.</li>
+          <li>청구서 양식에 맞춰 작성 후, 준비된 서류를 사진으로 찍거나 스캔하여 업로드.</li>
+          <li>보험금 심사 및 지급 (일반적으로 3~5일 소요).</li>
+      </ol>
+      <div class="box-info">
+          <strong>주의 사항:</strong> 치과 치료 시에는 치료 전후 X-ray 사진이나 의무 기록 사본 등 추가적인 증빙 서류가 요구될 수 있습니다. 특히 턱관절 장애(K07.6) 등 특정 질환 코드가 필요한 경우도 있으니, 미리 보험사에 문의하여 필요한 서류를 확인하는 것이 좋습니다.
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>자주 묻는 질문 (FAQ)</h2>
+      <div class="faq-list">
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <h3>Q1. 실손보험 가입 후 치과 치료 시 면책 기간이 있나요?</h3>
+          <div class="faq-content">
+            <p><strong>아닙니다. 실손보험은 가입 즉시 보장이 개시됩니다.</strong> 치아보험과 달리 실손보험에는 면책 기간(보험 가입 후 일정 기간 동안 보장하지 않는 기간)이 없습니다. 다만, 치아보험은 대부분 90일~180일의 면책 기간과 1년 또는 2년의 감액 기간이 있으므로, 두 보험을 혼동하지 않도록 주의해야 합니다.</p>
+          </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <h3>Q2. 레진 치료는 실손보험 청구가 가능한가요?</h3>
+          <div class="faq-content">
+            <p><strong>원칙적으로 불가능합니다.</strong> 레진 치료는 심미성이 강조되는 비급여 항목으로 분류되어 실손보험의 보상 대상에서 제외됩니다. 다만, 만 12세 이하 어린이의 영구치 레진 충전은 2019년부터 건강보험 급여 항목으로 지정되어 실손보험 청구가 가능합니다.</p>
+          </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <h3>Q3. 사랑니 발치나 스케일링도 실손보험 청구가 되나요?</h3>
+          <div class="faq-content">
+            <p><strong>네, 가능합니다.</strong> 사랑니 발치는 급여 항목으로 실손보험 청구 대상이며, 치료 목적으로 시행하는 스케일링 역시 급여 항목으로 보장됩니다. 하지만 단순 예방 목적의 스케일링은 비급여 항목이므로 실손보험 청구가 어렵습니다.</p>
+          </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <h3>Q4. 턱관절 장애(TMJ) 치료도 실손보험으로 보장받을 수 있나요?</h3>
+          <div class="faq-content">
+            <p><strong>네, 가능합니다.</strong> 턱관절 장애 치료는 질병 치료로 분류되어 국민건강보험 급여 항목에 해당됩니다. 따라서 실손보험으로 급여 부분의 본인부담금을 청구할 수 있습니다. 다만, 비급여로 분류되는 장치(스플린트) 등은 보장 대상에서 제외될 수 있습니다. 치료 전 의사에게 급여/비급여 여부를 확인하는 것이 중요합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculation">
+      <h2>실손 치과 보장 간편 청구금 계산기 (시뮬레이션)</h2>
+      <p>실손보험 가입 시기와 치료 항목을 입력하면 예상 청구 가능 금액을 간편하게 계산해 볼 수 있습니다. (※ 실제 지급액은 약관 및 보험사 심사에 따라 달라질 수 있습니다.)</p>
+      <div class="form-section">
+          <label for="join-date">1. 실손보험 가입 시기 선택:</label>
+          <select id="join-date" onchange="updateCalculation()">
+              <option value="pre2009">~2009년 9월 (1세대)</option>
+              <option value="post2009">2009년 10월 이후 (2~4세대)</option>
+          </select>
+
+          <label for="procedure">2. 치료 항목 선택:</label>
+          <select id="procedure" onchange="updateCalculation()">
+              <option value="none">-- 치료 항목을 선택하세요 --</option>
+              <option value="scaling">스케일링 (치료 목적)</option>
+              <option value="nerve">신경치료 (근관치료)</option>
+              <option value="implant">임플란트 (비급여)</option>
+              <option value="crown">크라운 (비급여)</option>
+              <option value="filling">레진 충전 (비급여)</option>
+          </select>
+
+          <label for="total-cost">3. 총 치료 비용 (원):</label>
+          <input type="number" id="total-cost" value="0" oninput="updateCalculation()">
+
+          <div class="box-info">
+              <p><strong>예상 청구 가능 금액:</strong> <span id="result-amount">0</span>원</p>
+              <p><strong>청구 가능 여부:</strong> <span id="result-message">위 항목을 선택하고 총 비용을 입력해 보세요.</span></p>
+          </div>
+      </div>
+    </section>
+
+    <section id="consultation-form">
+      <h2>실시간 보험 전문가 1:1 무료 상담 신청</h2>
+      <p>복잡한 실손보험 약관과 2026년 개정안, 치아보험 비교 분석까지 전문가와 1:1로 상담받아보세요. 고객님의 상황에 맞는 최적의 보험 솔루션을 무료로 제공해 드립니다. <span class="green-highlight">개인정보 보호를 최우선으로 하며, 24시간 이내 답변을 약속드립니다.</span></p>
+
+      <div class="form-section">
+          <form id="consultation-form-submit">
+              <label for="user-name">이름:</label>
+              <input type="text" id="user-name" name="name" required placeholder="이름을 입력해주세요.">
+
+              <label for="user-phone">연락처:</label>
+              <input type="tel" id="user-phone" name="phone" required placeholder="휴대폰 번호를 입력해주세요.">
+
+              <label for="consultation-type">상담 희망 내용:</label>
+              <select id="consultation-type" name="type" required>
+                  <option value="">-- 선택하세요 --</option>
+                  <option value="claim_check">치과 치료 실비 청구 가능 여부 확인</option>
+                  <option value="comparison">실손보험 vs 치아보험 비교 분석</option>
+                  <option value="renewal_check">2026년 개정안에 따른 보험 갱신 상담</option>
+                  <option value="new_subscription">새로운 치아보험 가입 상담</option>
+              </select>
+
+              <label for="specific-query">구체적인 문의 사항:</label>
+              <textarea id="specific-query" name="query" rows="5" placeholder="궁금한 내용을 상세하게 적어주세요. (예: 임플란트 2개 예정, 현재 3세대 실손 가입 등)"></textarea>
+
+              <button type="submit">상담 신청</button>
+          </form>
+      </div>
+    </section>
+
+    <section id="keywords">
+      <h2>함께 많이 찾는 키워드 (연관 검색어 분석)</h2>
+      <div class="keyword-cloud">
+          <span class="keyword">실손보험 치과치료</span>
+          <span class="keyword">치아보험 필요성</span>
+          <span class="keyword">실손보험 치과 비급여</span>
+          <span class="keyword">실비보험 임플란트</span>
+          <span class="keyword">실손보험 충치치료</span>
+          <span class="keyword">2026년 실손보험 개정안</span>
+          <span class="keyword">치아보험 vs 실비보험</span>
+          <span class="keyword">실손보험 면책기간</span>
+          <span class="keyword">치과 진료비 실비 청구</span>
+          <span class="keyword">레진 실비 청구</span>
+          <span class="keyword">실손보험 가입 시기별 보장</span>
+      </div>
+    </section>
+
+    <section id="location">
+      <h2>신뢰성 있는 외부 사이트 참조</h2>
+      <p>본 페이지의 정보는 공신력 있는 기관의 자료를 기반으로 작성되었습니다. 더 자세한 정보는 아래의 외부 사이트에서 확인할 수 있습니다.</p>
+      <ul>
+          <li><a href="https://www.law.go.kr" class="external-link" target="_blank">국가법령정보센터</a>: 보험업법 및 관련 법규정 확인</li>
+          <li><a href="https://www.fss.or.kr" class="external-link" target="_blank">금융감독원 (FSS)</a>: 보험 약관 표준화 및 소비자 유의사항 공지</li>
+          <li><a href="https://www.nhis.or.kr" class="external-link" target="_blank">국민건강보험공단</a>: 급여 항목 및 비급여 항목에 대한 공식 자료 제공</li>
+          <li><a href="https://namu.wiki/w/%EC%8B%A4%EC%86%90%EC%9D%98%EB%A3%8C%EB%B3%B4%ED%97%98" class="external-link" target="_blank">나무위키 - 실손의료보험</a>: 실손보험 세대별 변화 및 약관 분석 (참고 자료)</li>
+          <li><a href="https://www.korea.kr" class="external-link" target="_blank">대한민국 정책브리핑</a>: 2026년 보험 제도 개편 관련 공식 발표 자료</li>
+      </ul>
+    </section>
+  </div> <!-- .container -->
+
+  <footer>
+    <div class="container">
+      <p>본 페이지는 실손보험 치과 보장에 대한 정보를 제공하며, 특정 보험 상품 가입을 강요하지 않습니다. 보험 가입 및 청구 여부는 반드시 약관을 확인하시고 전문가와 상담 후 결정하시기 바랍니다.</p>
+      <p>&copy; 2026 실손보험 치과 보장 분석 센터. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ 토글 기능
+    function toggleFaq(item) {
+      item.classList.toggle('active');
+    }
+
+    // 간편 계산기 시뮬레이션 로직
+    function updateCalculation() {
+        const joinDate = document.getElementById('join-date').value;
+        const procedure = document.getElementById('procedure').value;
+        const totalCost = parseInt(document.getElementById('total-cost').value);
+        const resultAmountElement = document.getElementById('result-amount');
+        const resultMessageElement = document.getElementById('result-message');
+        let coveragePercentage = 0;
+        let message = '';
+
+        if (procedure === 'none') {
+            resultAmountElement.textContent = '0';
+            resultMessageElement.textContent = '치료 항목을 선택해 주세요.';
+            return;
+        }
+
+        // 1세대 실손보험 (2009년 9월 이전)은 치과 치료 보장 제외 (상해 제외)
+        if (joinDate === 'pre2009') {
+            resultAmountElement.textContent = '0';
+            resultMessageElement.textContent = '1세대 실손보험은 해당 치료를 보장하지 않습니다.';
+            return;
+        }
+
+        // 2~4세대 실손보험 (2009년 10월 이후) 보장 로직 (급여 항목만)
+        if (procedure === 'implant' || procedure === 'crown' || procedure === 'filling') {
+            coveragePercentage = 0;
+            message = '해당 치료는 비급여 항목으로 실손보험 청구가 어렵습니다. (치아보험으로 보장 가능)';
+        } else if (procedure === 'scaling' || procedure === 'nerve') {
+            // 급여 항목의 경우, 자기부담금 제외 후 보상 (일반적으로 80~90% 보장)
+            // 4세대 실손보험 기준 급여 20% 공제 (보장률 80%)
+            coveragePercentage = 0.8;
+            message = '급여 항목의 본인부담금에 대해 보장이 가능합니다.';
+        }
+
+        const calculatedAmount = Math.round(totalCost * coveragePercentage);
+        resultAmountElement.textContent = calculatedAmount.toLocaleString();
+        resultMessageElement.textContent = message;
+    }
+
+    // 텍스트 길이 체크 (20000자 이상 확인용)
+    document.addEventListener('DOMContentLoaded', function() {
+        const textContent = document.body.innerText;
+        // console.log("Total character count: " + textContent.length); // 개발자 도구로 확인
+    });
+  </script>
+
+  
